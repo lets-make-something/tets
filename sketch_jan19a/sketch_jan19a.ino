@@ -334,6 +334,13 @@ float rol;
 float roll;
 
 void setup() {
+  pinMode(2, INPUT_PULLUP);
+  pinMode(3, INPUT_PULLUP);
+  pinMode(4, INPUT_PULLUP);
+  pinMode(5, INPUT_PULLUP);
+  pinMode(6, INPUT_PULLUP);
+  pinMode(7, INPUT_PULLUP);
+
   begin(12, 10, 11, 4); // dataPin, clkPin, csPin, numero de matrices de 8x8
   for(int i=0;i<4;i++){
     setIntensity(i,1);
@@ -352,10 +359,6 @@ void setup() {
 }
 
 void loop() {
-  if(bs.over>10000){
-    bs.Start();
-  }
-  
   int JoyX=0;
   int JoyY=0;
   int r_button=0;
@@ -369,7 +372,22 @@ void loop() {
       case 'f':JoyX=+1000;break;
     }
   }
-        
+  if(LOW == digitalRead(3)){
+    l_button=1;
+  }
+  if(LOW == digitalRead(7)){
+    r_button=1;
+  }
+  if(LOW == digitalRead(4)){
+    JoyX=-1000;
+  }
+  if(LOW == digitalRead(6)){
+    JoyX=+1000;
+  }
+  if(LOW == digitalRead(5)){
+    JoyY=+1000;
+  }
+
   int Time=50;
   
   if(JoyX<-500) {
